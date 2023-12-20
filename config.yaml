@@ -1,7 +1,7 @@
 ---
 # Whether to give the bot a bot tag (true) or not (false). Recommended to mark it but the option is here if you already
 # marked it manually and it starts throwing user_already_exists errors
-markAsBot: true
+markAsBot: false
 
 # How often to check for new posts in minutes
 postCheckInterval: 10
@@ -11,7 +11,7 @@ dayCheckInterval: 10
 
 # The timezone to use for the bot (as reference for unpinning posts at midnight)
 # You can see the options here: https://www.inmotionhosting.com/support/website/tz-ref-table/
-timezone: "America/Toronto"
+timezone: "America/Phoenix"
 
 # Posts from how many days ago are you willing to backpost when the bot starts
 dayCutOff: 7
@@ -34,36 +34,39 @@ postSleepDuration: 5000
 
 # The instances and communities used by the bot
 instances:
-  programming.dev: # The instance name
-    godot: # The community slug (value in url) in that instance
-      - "godot" # The feed to use (do a new line with a dash in front for each feed)
+  tucson.social: # The instance name
+    tucsonpolitics: # The community slug (value in url) in that instance
+      - "tucsentinelpol" # The feed to use (do a new line with a dash in front for each feed)
 
-    unreal_engine: # Another community in the instance
-      - "unreal"
-
-    unity:
-      - "unity"
+    home: # Another community in the instance
+      - "thisistucson"
 
 # The rss feeds used to pull posts from
 feeds:
-  godot: # The name of the feed (used in the instances section to mark feed to use)
-    url: "https://godotengine.org/rss.xml"
-    pinCategories: # If a bot has a category section that lists this category, pin it for the amount of days
-      - Release: 7
-      - Pre-release: 7
+  tucsentinellocal: # The name of the feed (used in the instances section to mark feed to use)
+    url: "https://www.tucsonsentinel.com/category/rss/local/"
+    content: "description"
+    datefield: "dc:date"
+    exclude:
+      - "tucsentinelpol" # the feed contains posts from tucsentinelpol, which we don"t want. So we exclude tucsentinelpol to get posts that are in tucsentinellocal only.
 
-  unreal:
-    url: "https://www.unrealengine.com/en-US/rss"
-    content: "summary"
+  tucsentinelpol:
+    url: "https://www.tucsonsentinel.com/category/rss/politics/"
+    content: "description"
+    datefield: "dc:date"
+    exclude:
+      - "tucsentinellocal" # the feed contains posts from tucsentinellocal, which we don"t want. So we exclude tucsentinellocal to get posts that are in tucsentinelpol only.
 
-  unity:
-    url: "https://blogs.unity3d.com/feed/"
+  thisistucson:
+    url: "https://thisistucson.com/search/?f=rss&t=article&c=thisistucson/todo&l=50&s=start_time&sd=desc"
+
+
 # Additional possible values:
 # joinfeeds will only include posts in common between the source feed and those in the list - It is processed first
 # exclude will remove posts from the feed based on the contents of another feed - It is processed second.
 # pinCategories will pin posts in the feed that match the category name for the specified amount of days
-# content is the name of the field in the feed that contains the post content. Defaults to 'summary' if not specified
-# datefield is the name of the field in the feed that contains the post date. Defaults to 'pubDate' if not specified
+# content is the name of the field in the feed that contains the post content. Defaults to "summary" if not specified
+# datefield is the name of the field in the feed that contains the post date. Defaults to "pubDate" if not specified
 #
 # ---
 #
@@ -71,18 +74,18 @@ feeds:
 #
 # feeds:
 #  example: # The name of the feed (used in the instances section to mark feed to use)
-#    url: 'https://example.com/rss'
+#    url: "https://example.com/rss"
 #    pinCategories:
 #      - News: 7
-#    content: 'summary'
-#    datefield: 'pubDate'
+#    content: "summary"
+#    datefield: "pubDate"
 #    joinfeeds:
-#      - 'example2' # the feed contains posts from example2, which we want. So we join example2 to get posts that are in both example and example2.
+#      - "example2" # the feed contains posts from example2, which we want. So we join example2 to get posts that are in both example and example2.
 #    exclude:
-#      - 'example3' # the feed contains posts from example3, which we don't want. So we exclude example3 to get posts that are in example only.
+#      - "example3" # the feed contains posts from example3, which we don"t want. So we exclude example3 to get posts that are in example only.
 #
 #  example2:
-#    url: 'https://example.com/rss2'
+#    url: "https://example.com/rss2"
 #
 #  example3:
-#    url: 'https://example.com/rss3'
+#    url: "https://example.com/rss3"
